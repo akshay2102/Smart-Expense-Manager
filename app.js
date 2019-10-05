@@ -63,6 +63,7 @@ app.get('/profile', function(req, res){
 		details.username = data.u_id;
 		details.mobile = data.number;
 		details.salary = data.salary;
+		details.threshold = data.threshold;
 		console.log(details);
 		res.render('profile',{details:details});
 	});
