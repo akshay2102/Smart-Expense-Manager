@@ -87,7 +87,7 @@
               <br>
               <div class="text-center">
                 <h3>
-                  Sangram Desai
+                  <%= details.first_name + ' ' + details.last_name %>
                 </h3>
               </div>
             </div>
@@ -107,38 +107,38 @@
               </div>
             </div>
             <div class="card-body">
-              <form>
+            <form action="/updateProfile" method="POST">
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="Contact">
-                      <h3> User Name </h3>
-                      <p class="infor"> Sangram </p>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="Contact">
-                      <h3> Email </h3>
-                      <p class="infor"> Sang@gmail.com </p>
-                    </div>
-                  </div>
-                </div>
-                <br>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> First Name </h3>
-                        <p class="infor"> Sangram </p>
+                        <input name="fname" class="infor" value="<%= details.first_name %>"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Last Name </h3>
-                        <p class="infor"> Desai </p>
+                        <input name="lname" class="infor" value="<%= details.last_name %>"/>
                       </div>
                     </div>
                   </div>
+                  <br>
+                  <div class="row">
+                  <div class="col-md-6">
+                    <div class="Contact">
+                      <h3> User Name </h3>
+                      <input name="uname" class="infor" value="<%= details.username %>"/>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <div class="Contact">
+                      <h3> Email </h3>
+                      <p class="infor"> Sang@gmail.com </p>
+                    </div>
+                  </div> -->
+                </div>
                 </div>
                 <hr class="my-4" />
                 <!-- Address -->
@@ -148,13 +148,13 @@
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Mobile No </h3>
-                        <p class="infor"> 8879217944 </p>
+                        <input name="mob" class="infor" value="<%= details.mobile %>"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Monthly Salary </h3>
-                        <p class="infor"> 50000 </p>
+                        <input name="salary" class="infor" value="<%= details.salary %>"/>
                       </div>
                     </div>
                   </div>

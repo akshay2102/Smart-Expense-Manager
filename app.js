@@ -6,10 +6,8 @@ var express 		= require('express'),
 	methodOverride 	= require('method-override'),
 	session 		= require('express-session'),
 	passport 		= require('passport'),
-	mysql 			= require('mysql');
-
-
-
+	mysql 			= require('mysql'),
+	sessionStorage	= require('sessionstorage');
 
 var login = require('./routes/loginroutes');
 // var bodyParser = require('body-parser');
@@ -37,15 +35,31 @@ con.connect(function(err){
 	if (err) throw err;
  	console.log("Connected!");
 });
-//route to handle user registration
+
 app.get('/',function(req, res) {
 	res.render('login.ejs');
 });
 app.get('/dashboard', function(req, res){
 	res.render('dashboard.ejs');
 });
+
 app.get('/profile', function(req, res){
-	res.render('profile');
+	var details = {}
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	console.log(currentUser);
+	con.query('SELECT * From user WHERE u_id = ?',[currentUser], function(error,results,fields){
+		console.log(results);
+		data = results[0];
+		name = data.name.split(' ');
+		// console.log(data.number);
+		details.first_name = name[0];
+		details.last_name = name[1];
+		details.username = data.u_id;
+		details.mobile = data.number;
+		details.salary = data.salary;
+		console.log(details);
+		res.render('profile',{details:details});
+	});
 });
 app.post('/register',login.register);
 app.post('/login',login.login);

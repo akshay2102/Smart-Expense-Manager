@@ -6,7 +6,8 @@ var express     = require('express'),
   methodOverride  = require('method-override'),
   session     = require('express-session'),
   passport    = require('passport'),
-  mysql       = require('mysql');
+  mysql       = require('mysql'),
+  sessionStorage  = require('sessionstorage');
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -19,6 +20,7 @@ connection.connect(function(err){
   if (err) throw err;
   console.log("Connected!");
 });
+
 module.exports.register = function(req,res){
   // console.log("req",req.body);
   // var today = new Date();
@@ -59,6 +61,7 @@ module.exports.login = function(req,res){
   }else{
     if(results.length >0){
       if(results[0].password == password){
+        sessionStorage.setItem('loggedin_user',u_id);
         res.redirect("/dashboard");
       }
       else{
