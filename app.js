@@ -42,6 +42,13 @@ app.get('/',function(req, res) {
 app.get('/dashboard', function(req, res){
 	res.render('dashboard.ejs');
 });
+app.get('/expence', function(req, res){
+	res.render('expence.ejs');
+});
+app.get('/future', function(req, res){
+	res.render('future.ejs');
+});
+
 
 app.get('/profile', function(req, res){
 	var details = {}

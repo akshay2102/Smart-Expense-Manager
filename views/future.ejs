@@ -25,7 +25,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">User Profile</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Add Future Goals</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -46,7 +46,7 @@
                   <img alt="Image placeholder" src="images/admin.png">
                 </p>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <p class="mb-0 text-sm  font-weight-bold"><%= details.username %></p>
+                  <p class="mb-0 text-sm  font-weight-bold">Sangram</p>
                 </div>
               </div>
             </a>
@@ -67,28 +67,54 @@
         <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
           <div class="card card-profile shadow">
             <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="#">
-                    <img src="images/admin.png" class="rounded-circle">
-                  </a>
-                </div>
-              </div>
+              
             </div>
 
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                <h2>Your Goals</h2>  
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
-              <br>
-              <br>
+              
               <div class="text-center">
-                <h3>
-                  <%= details.first_name + ' ' + details.last_name %>
-                </h3>
+                
+                  <div class="container" style="border: solid grey 1px;border-radius: 10px; height: 80px;padding: 10px;margin-bottom: 5px;">
+                    <div class="row">
+                      <div class="col-3">
+                        <img src="images/task.png" alt="Avatar" style="width:60px">  
+                      </div>
+                      <div class="col-6">
+                        <h4>Friend request</h4>
+                        <h5>John Doe</h5>
+                      </div>
+                      <div class="col-3">
+                        <button class="btn btn-success"></button>
+                        <button class="btn btn-danger"></button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="container" style="border: solid grey 1px;border-radius: 10px; height: 80px;padding: 10px;margin-bottom: 5px;">
+                    <div class="row">
+                      <div class="col-3">
+                        <img src="images/task.png" alt="Avatar" style="width:60px">  
+                      </div>
+                      <div class="col-6">
+                        <h4>Friend request</h4>
+                        <h5>John Doe</h5>
+                      </div>
+                      <div class="col-3">
+                        <button class="btn btn-success"></button>
+                        <button class="btn btn-danger"></button>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
               </div>
             </div>
           </div>
@@ -99,7 +125,7 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">My account</h3>
+                  <h3 class="mb-0">My Goals</h3>
                 </div>
                 <div class="col-4 text-right">
                   <a href="#!" class="btn btn-sm btn-primary">Settings</a>
@@ -108,19 +134,20 @@
             </div>
             <div class="card-body">
             <form action="/updateProfile" method="POST">
-                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <h6 class="heading-small text-muted mb-4">Add Future Goals</h6>
                 <div class="pl-lg-4">
                   <div class="row">
                     <div class="col-md-6">
                       <div class="Contact">
-                        <h3> First Name </h3>
-                        <input name="fname" class="infor" value="<%= details.first_name %>"/>
+                        <h3> Goal Title </h3>
+                        <input name="fname" class="infor" value="sa"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="Contact">
-                        <h3> Last Name </h3>
-                        <input name="lname" class="infor" value="<%= details.last_name %>"/>
+                        <h3> Date </h3>
+                        <input type="date" class="infor"/>
+
                       </div>
                     </div>
                   </div>
@@ -128,46 +155,37 @@
                   <div class="row">
                   <div class="col-md-6">
                     <div class="Contact">
-                      <h3> User Name </h3>
-                      <input name="uname" class="infor" value="<%= details.username %>"/>
+                      <h3> Category </h3>
+                      <select class="infor">
+                        <option>Health</option>
+                        <option>Entertainment</option>                        
+                        <option>Travel</option>                        
+                        <option>Food</option>                        
+                        <option>Other</option>                        
+                        
+                      </select>
                     </div>
                   </div>
-                  <!-- <div class="col-md-6">
+                  <div class="col-md-6">
                     <div class="Contact">
-                      <h3> Email </h3>
-                      <p class="infor"> Sang@gmail.com </p>
+                      <h3> Price </h3>
+                      <input name="price" class="infor" value="de"/>
                     </div>
-                  </div> -->
+                  </div>
                 </div>
                 </div>
                 <hr class="my-4" />
-                <!-- Address -->
-                <h6 class="heading-small text-muted mb-4">Contact information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Mobile No </h3>
-                        <input name="mob" class="infor" value="<%= details.mobile %>"/>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Monthly Salary </h3>
-                        <input name="salary" class="infor" value="<%= details.salary %>"/>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
+                
                 <br>
                 <br>
                 <div class="row">
                     <div class="col-7 text-right">
-                      <button class="btn btn-primary" type="submit">Update</button>
+                      <button class="btn btn-success" type="submit">ADD</button>
                     </div>   
-                </div>                        
+                </div>
+                              
               </form>
+
             </div>
           </div>
         </div>
