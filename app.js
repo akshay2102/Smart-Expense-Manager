@@ -40,7 +40,7 @@ app.get('/',function(req, res) {
 	res.render('login.ejs');
 });
 app.get('/dashboard', function(req, res){
-	res.render('dashboard.ejs');
+	res.render('dashboard.ejs',{freq : '', sum_expenses : ''});
 });
 app.get('/expense', function(req, res){
 	res.render('expense.ejs',{uid:sessionStorage.getItem('loggedin_user')});
@@ -67,7 +67,26 @@ app.get('/profile', function(req, res){
 		res.render('profile',{details:details});
 	});
 });
+app.get("/dashboard",function(req, res){
+	res.render('dashboard.ejs', {freq : '', sum_expenses : ''});
+});
 
+app.post('/chart',function(req, res) {
+	var startDate = req.body.startDate;
+	// var end = startDate + 1;
+	var freq = [0,0,0,0,0,0,0,0,0,0,0,0];
+	var sum_expenses = [0,0,0,0,0,0,0,0,0,0,0,0];
+	con.query("SELECT * FROM expense WHERE YEAR(date) = ?",[startDate], function(err,result,fields){
+		result.forEach(function(item){
+			// console.log(item);
+			var month = item.date.getMonth();
+			freq[parseInt(month)] = freq[parseInt(month)] + 1;
+			sum_expenses[parseInt(month)] = sum_expenses[parseInt(month)] + item.amount;
+		});
+		console.log(sum_expenses);
+		res.render('dashboard.ejs',{freq : ""+JSON.stringify(freq)+"", sum_expenses : ""+JSON.stringify(sum_expenses)+""});
+	});
+});
 app.post('/register',login.register);
 app.post('/login',login.login);
 app.post('/updateProfile',function(req, res){
@@ -87,7 +106,7 @@ app.post('/addExpense', function(req, res){
 		}
 		else{
 			console.log('Expense Added');
-			res.redirect('/dashboard');
+			res.redirect('/dashboard',{freq : '', sum_expenses : ''});
 		}
 	});
 });
@@ -99,7 +118,7 @@ app.post('/addGoal', function(req,res){
 		}
 		else{
 			console.log('Goal Added');
-			res.redirect('/dashboard');
+			res.redirect('/dashboard',{freq : '', sum_expenses : ''});
 		}
 	});
 });

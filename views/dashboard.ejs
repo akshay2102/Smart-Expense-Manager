@@ -10,6 +10,7 @@
   <link href="css/argon-dashboard.css" rel="stylesheet" />
   <link href="css/profile.css" rel="stylesheet" />
   <link href="css/sidenav.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body class="">
@@ -87,7 +88,27 @@
               </div>
             </div>
             <div class="card-body">
-            
+              <form class="row" id="year" action="/chart" method="POST">
+              <span class="col-1" ></span>
+              <h3 class="col-2" >Enter Year</h3>
+                <input class="form-control col-4" type="number" name="startDate">
+                <span class="col-1" ></span>
+                <input type="submit" class="btn btn-primary btn-md col-2" name="submit" value="Visualize">
+              </form>
+              <br>
+              <div class="row"  style="height: 50px">
+                <div class="col-6">
+                  <canvas id="myChart"></canvas>                      
+                </div>
+
+                <div class="col-6 ">
+                  <canvas id="myChart2"></canvas>    
+                </div>
+              </div>
+              
+              
+              <div style="display: none;" id="dard"><%= freq?freq:null %></div>
+              <div style="display: none;" id="dard_sum"><%= sum_expenses?sum_expenses:null %></div>
 
             </div>
           </div>
@@ -102,3 +123,100 @@
 </body>
 
 </html>
+<script type="text/javascript">
+  // var freq;
+  try {
+    var dard = JSON.parse('<%- freq %>');
+    //alert(dard);
+    // data_x = freq;
+    // alert(freq);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+          datasets: [{
+              label: 'Count of Transactions',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: JSON.parse(document.getElementById("dard").innerHTML||[])
+
+        }],
+    },
+      options: {}
+  });
+    // console.log(data_x);
+  }
+  catch(err){
+    // alert("DARD BHENCHOD");
+    data_x = [0,0,0,0,0,0,0,0,0,0,0,0];
+    // alert(freq);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+          datasets: [{
+              label: 'Count of Transactions',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              // data: [0, 10, 5, 2, 20, 30, 45] //freq
+              data: data_x
+
+        }],
+    },
+      options: {}
+  });
+    // console.log(data_x);
+  }
+</script>
+
+
+
+<script type="text/javascript">
+  // var freq;
+  try {
+    var dard = JSON.parse('<%- sum_expenses %>');
+    //alert(dard);
+    // data_x = freq;
+    // alert(freq);
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+          datasets: [{
+              label: 'Sum of Transactions',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: JSON.parse(document.getElementById("dard_sum").innerHTML||[])
+
+        }],
+    },
+      options: {}
+  });
+    // console.log(data_x);
+  }
+  catch(err){
+    // alert("DARD BHENCHOD");
+    data_x = [0,0,0,0,0,0,0,0,0,0,0,0];
+    // alert(freq);
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+          datasets: [{
+              label: 'Sum of Transactions',
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              // data: [0, 10, 5, 2, 20, 30, 45] //freq
+              data: data_x
+
+        }],
+    },
+      options: {}
+  });
+    // console.log(data_x);
+  }
+</script>
