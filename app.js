@@ -70,5 +70,14 @@ app.get('/profile', function(req, res){
 });
 app.post('/register',login.register);
 app.post('/login',login.login);
+app.post('/updateProfile',function(req, res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	var full_name = req.body.fname + ' ' + req.body.lname;
+	con.query('UPDATE user SET name = ?,u_id = ?,number = ?,salary = ? WHERE u_id = ?',[full_name,req.body.uname,req.body.mob,req.body.salary,sessionStorage.getItem('loggedin_user')], function(error,results,fields){
+		console.log('Successfully Updated!!!!');
+		sessionStorage.setItem('loggedin_user',req.body.uname);
+		res.redirect('/profile');
+	});
+});
 app.use('/api', router);
 app.listen(3000);
