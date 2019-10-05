@@ -42,13 +42,12 @@ app.get('/',function(req, res) {
 app.get('/dashboard', function(req, res){
 	res.render('dashboard.ejs');
 });
-app.get('/expence', function(req, res){
-	res.render('expence.ejs');
+app.get('/expense', function(req, res){
+	res.render('expense.ejs',{uid:sessionStorage.getItem('loggedin_user')});
 });
 app.get('/future', function(req, res){
-	res.render('future.ejs');
+	res.render('future.ejs',{uid:sessionStorage.getItem('loggedin_user')});
 });
-
 
 app.get('/profile', function(req, res){
 	var details = {}
@@ -68,7 +67,42 @@ app.get('/profile', function(req, res){
 		res.render('profile',{details:details});
 	});
 });
+
 app.post('/register',login.register);
 app.post('/login',login.login);
+app.post('/updateProfile',function(req, res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	var full_name = req.body.fname + ' ' + req.body.lname;
+	con.query('UPDATE user SET name = ?,u_id = ?,number = ?,salary = ? WHERE u_id = ?',[full_name,req.body.uname,req.body.mob,req.body.salary,sessionStorage.getItem('loggedin_user')], function(error,results,fields){
+		console.log('Successfully Updated!!!!');
+		sessionStorage.setItem('loggedin_user',req.body.uname);
+		res.redirect('/profile');
+	});
+});
+app.post('/addExpense', function(req, res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	con.query('INSERT INTO expense(u_id,title,date,category,amount) VALUES(?,?,?,?,?)',[currentUser,req.body.title,req.body.date,req.body.cat,req.body.price], function(error,results,fields){
+		if(error){
+			console.log(error);
+		}
+		else{
+			console.log('Expense Added');
+			res.redirect('/dashboard');
+		}
+	});
+});
+app.post('/addGoal', function(req,res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	con.query('INSERT INTO goals(u_id,title,date,category,amount) VALUES(?,?,?,?,?)',[currentUser,req.body.gname,req.body.date,req.body.cat,req.body.price], function(error,results,fields){
+		if(error){
+			console.log(error);
+		}
+		else{
+			console.log('Goal Added');
+			res.redirect('/dashboard');
+		}
+	});
+});
+
 app.use('/api', router);
 app.listen(3000);

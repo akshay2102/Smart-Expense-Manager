@@ -9,12 +9,20 @@
   <!-- CSS Files -->
   <link href="css/argon-dashboard.css" rel="stylesheet" />
   <link href="css/profile.css" rel="stylesheet" />
+  <link href="css/sidenav.css" rel="stylesheet" />
 </head>
 
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
-      
+      <div class="sidenav">
+        <div align="center" class="logo">LOGO</div>
+        <hr>
+        <a href="../dashboard"><i class="glyphicon glyphicon-dashboard"></i>  Dashboard</a>
+        <a href="../expense"><i class="glyphicon glyphicon-usd"></i> Expense</a>
+        <a href="../future"><i class="glyphicon glyphicon-send"></i> Future</a>
+        <a href="../profile"><i class="glyphicon glyphicon-user"></i> Profile</a>
+      </div>
       
      
     </div>
@@ -114,13 +122,13 @@
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> First Name </h3>
-                        <input name="fname" class="infor" value="<%= details.first_name %>"/>
+                        <input name="fname" type="text" class="infor" value="<%= details.first_name %>"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Last Name </h3>
-                        <input name="lname" class="infor" value="<%= details.last_name %>"/>
+                        <input name="lname" type="text" class="infor" value="<%= details.last_name %>"/>
                       </div>
                     </div>
                   </div>
@@ -129,7 +137,7 @@
                   <div class="col-md-6">
                     <div class="Contact">
                       <h3> User Name </h3>
-                      <input name="uname" class="infor" value="<%= details.username %>"/>
+                      <input name="uname" type="text" class="infor" value="<%= details.username %>"/>
                     </div>
                   </div>
                   <!-- <div class="col-md-6">
@@ -148,13 +156,13 @@
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Mobile No </h3>
-                        <input name="mob" class="infor" value="<%= details.mobile %>"/>
+                        <input name="mob" type="number" class="infor" value="<%= details.mobile %>"/>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="Contact">
                         <h3> Monthly Salary </h3>
-                        <input name="salary" class="infor" value="<%= details.salary %>"/>
+                        <input name="salary" type="number" class="infor" value="<%= details.salary %>"/>
                       </div>
                     </div>
                   </div>
