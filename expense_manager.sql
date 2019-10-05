@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2019 at 07:54 PM
+-- Generation Time: Oct 05, 2019 at 09:35 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.6
 
@@ -37,6 +37,15 @@ CREATE TABLE `expense` (
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `expense`
+--
+
+INSERT INTO `expense` (`expense_id`, `u_id`, `title`, `date`, `category`, `amount`) VALUES
+(1, 'dard', 'TP', '2019-10-05', 'Other', 500000000),
+(2, 'procrastinator', 'Mobile', '2019-10-04', 'Entertainment', 40000),
+(3, 'test', 'eating', '2019-10-10', 'Food', 21212);
+
 -- --------------------------------------------------------
 
 --
@@ -46,9 +55,18 @@ CREATE TABLE `expense` (
 CREATE TABLE `goals` (
   `u_id` varchar(256) NOT NULL,
   `title` varchar(256) NOT NULL,
-  `amont` int(11) NOT NULL,
-  `date` varchar(256) NOT NULL
+  `amount` int(11) NOT NULL,
+  `date` varchar(256) NOT NULL,
+  `category` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `goals`
+--
+
+INSERT INTO `goals` (`u_id`, `title`, `amount`, `date`, `category`) VALUES
+('procrastinator', 'Car', 5000000, '2019-10-31', 'Travel'),
+('test', 'Car', 12, '2019-10-10', 'Health');
 
 -- --------------------------------------------------------
 
@@ -69,9 +87,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`u_id`, `name`, `password`, `number`, `salary`) VALUES
-('animesh', 'animesh', 'animesh', '56789', 56789),
-('kodak', 'akshay kotak', 'kodak', '2147483647', 45678),
-('test', 'test', 'test', '7878', 7878);
+('dard', 'Animesh Ghosh', 'animesh', '7977342344', 30000),
+('procrastinator', 'Akshay Kotak', 'kodak', '9167857252', 60000),
+('test', 'test1 tt', 'test', '7878', 7878);
 
 --
 -- Indexes for dumped tables
@@ -97,7 +115,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `expense`
 --
 ALTER TABLE `expense`
-  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `expense_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

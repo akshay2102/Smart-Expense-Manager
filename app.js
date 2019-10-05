@@ -42,13 +42,12 @@ app.get('/',function(req, res) {
 app.get('/dashboard', function(req, res){
 	res.render('dashboard.ejs');
 });
-app.get('/expence', function(req, res){
-	res.render('expence.ejs');
+app.get('/expense', function(req, res){
+	res.render('expense.ejs',{uid:sessionStorage.getItem('loggedin_user')});
 });
 app.get('/future', function(req, res){
-	res.render('future.ejs');
+	res.render('future.ejs',{uid:sessionStorage.getItem('loggedin_user')});
 });
-
 
 app.get('/profile', function(req, res){
 	var details = {}
@@ -68,6 +67,7 @@ app.get('/profile', function(req, res){
 		res.render('profile',{details:details});
 	});
 });
+
 app.post('/register',login.register);
 app.post('/login',login.login);
 app.post('/updateProfile',function(req, res){
@@ -79,5 +79,30 @@ app.post('/updateProfile',function(req, res){
 		res.redirect('/profile');
 	});
 });
+app.post('/addExpense', function(req, res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	con.query('INSERT INTO expense(u_id,title,date,category,amount) VALUES(?,?,?,?,?)',[currentUser,req.body.title,req.body.date,req.body.cat,req.body.price], function(error,results,fields){
+		if(error){
+			console.log(error);
+		}
+		else{
+			console.log('Expense Added');
+			res.redirect('/dashboard');
+		}
+	});
+});
+app.post('/addGoal', function(req,res){
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	con.query('INSERT INTO goals(u_id,title,date,category,amount) VALUES(?,?,?,?,?)',[currentUser,req.body.gname,req.body.date,req.body.cat,req.body.price], function(error,results,fields){
+		if(error){
+			console.log(error);
+		}
+		else{
+			console.log('Goal Added');
+			res.redirect('/dashboard');
+		}
+	});
+});
+
 app.use('/api', router);
 app.listen(3000);
