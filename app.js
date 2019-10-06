@@ -7,7 +7,9 @@ var express 		= require('express'),
 	session 		= require('express-session'),
 	passport 		= require('passport'),
 	mysql 			= require('mysql'),
-	sessionStorage	= require('sessionstorage');
+	sessionStorage	= require('sessionstorage'),
+	webpush 		= require('web-push'),
+	path 			= require('path');
 
 var login = require('./routes/loginroutes');
 // var bodyParser = require('body-parser');
@@ -23,6 +25,7 @@ var router = express.Router();
 //Initial Setup
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, "client")));
 app.use(methodOverride('_method'));
 app.use(flash());
 var	con = mysql.createConnection({
@@ -36,17 +39,19 @@ con.connect(function(err){
  	console.log("Connected!");
 });
 
-app.get('/',function(req, res) {
+app.get('/login',function(req, res) {
 	res.render('login.ejs');
 });
 app.get('/dashboard', function(req, res){
-	res.render('dashboard.ejs',{freq : '', sum_expenses : ''});
+	res.render('dashboard.ejs',{freq : '', sum_expenses : '', uid: sessionStorage.getItem('loggedin_user')});
 });
 app.get('/expense', function(req, res){
 	res.render('expense.ejs',{uid:sessionStorage.getItem('loggedin_user')});
 });
 app.get('/future', function(req, res){
-	res.render('future.ejs',{uid:sessionStorage.getItem('loggedin_user')});
+	con.query('SELECT * FROM goals WHERE u_id = ?',[sessionStorage.getItem('loggedin_user')],function(error,results,fields){
+		res.render('future.ejs',{uid:sessionStorage.getItem('loggedin_user'), results: results});
+	});
 });
 
 app.get('/profile', function(req, res){
@@ -63,13 +68,12 @@ app.get('/profile', function(req, res){
 		details.username = data.u_id;
 		details.mobile = data.number;
 		details.salary = data.salary;
-		details.threshold = data.threshold;
 		console.log(details);
 		res.render('profile',{details:details});
 	});
 });
 app.get("/dashboard",function(req, res){
-	res.render('dashboard.ejs', {freq : '', sum_expenses : ''});
+	res.render('dashboard.ejs', {freq : '', sum_expenses : '', uid: sessionStorage.getItem('loggedin_user')});
 });
 
 app.post('/chart',function(req, res) {
@@ -77,7 +81,7 @@ app.post('/chart',function(req, res) {
 	// var end = startDate + 1;
 	var freq = [0,0,0,0,0,0,0,0,0,0,0,0];
 	var sum_expenses = [0,0,0,0,0,0,0,0,0,0,0,0];
-	con.query("SELECT * FROM expense WHERE YEAR(date) = ?",[startDate], function(err,result,fields){
+	con.query("SELECT * FROM expense WHERE YEAR(date) = ? AND u_id = ?",[startDate,sessionStorage.getItem('loggedin_user')], function(err,result,fields){
 		result.forEach(function(item){
 			// console.log(item);
 			var month = item.date.getMonth();
@@ -85,7 +89,7 @@ app.post('/chart',function(req, res) {
 			sum_expenses[parseInt(month)] = sum_expenses[parseInt(month)] + item.amount;
 		});
 		console.log(sum_expenses);
-		res.render('dashboard.ejs',{freq : ""+JSON.stringify(freq)+"", sum_expenses : ""+JSON.stringify(sum_expenses)+""});
+		res.render('dashboard.ejs',{freq : ""+JSON.stringify(freq)+"", sum_expenses : ""+JSON.stringify(sum_expenses)+"", uid: sessionStorage.getItem('loggedin_user')});
 	});
 });
 app.post('/register',login.register);
@@ -107,7 +111,7 @@ app.post('/addExpense', function(req, res){
 		}
 		else{
 			console.log('Expense Added');
-			res.redirect('/dashboard',{freq : '', sum_expenses : ''});
+			res.render('dashboard.ejs',{freq : '', sum_expenses : '', uid: sessionStorage.getItem('loggedin_user')});
 		}
 	});
 });
@@ -119,10 +123,100 @@ app.post('/addGoal', function(req,res){
 		}
 		else{
 			console.log('Goal Added');
-			res.redirect('/dashboard',{freq : '', sum_expenses : ''});
+			// res.redirect({freq : '', sum_expenses : '', uid: sessionStorage.getItem('loggedin_user')},'/dashboard');
+			con.query('SELECT * FROM goals WHERE u_id = ?',[sessionStorage.getItem('loggedin_user')],function(error,results,fields){
+				res.render('future.ejs',{uid: sessionStorage.getItem('loggedin_user'), results: results});
+			});
 		}
-	});
+	});		
 });
 
 app.use('/api', router);
 app.listen(3000);
+
+
+
+
+//Bank
+const publicVapidKey =
+  "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
+const privateVapidKey = "3KzvKasA2SoCxsp0iIG_o9B0Ozvl1XDwI63JRKNIWBM";
+
+webpush.setVapidDetails(
+  "mailto:test@test.com",
+  publicVapidKey,
+  privateVapidKey
+);
+
+// Subscribe Route
+app.post("/subscribe", (req, res) => {
+  // Get pushSubscription object
+  const subscription = req.body;
+
+  // Send 201 - resource created
+  res.status(201).json({});
+
+  // Create payload
+  const payload = JSON.stringify({ title: "Push Test" });
+
+  // Pass object into sendNotification
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
+});
+
+app.get('/fillbank', (req, res) => {
+
+	for (var i = 20; i > 0; i--) {
+
+		var userid = Math.random()*(4-1)+1;
+		var accno = 21-i;
+		var balance = Math.random()*(20000-5000)+5000;
+		con.query('INSERT INTO BANK(userid, accno, balance) VALUES (?, ?, ?);', [userid, accno, balance], function(error,results,fields) {
+			if(error) console.log(error);
+			else console.log(results);
+		});
+
+	}
+
+});
+
+app.get('/credit', (req, res) => {
+
+	var prev,curr;
+
+	con.query('SELECT balance from bank where accno = 15', function(error, results, fields) {
+
+		// prev = parseInt(results.balance.toString());
+		prev = results[0].balance;
+		if(error) console.log(error);
+		console.log(results[0].balance);
+
+		curr = prev + 5000;
+		con.query('UPDATE BANK SET balance = ? WHERE accno = 15', [curr], function(error, results, fields) {
+
+			if(error) console.log(error);
+		});
+	});
+
+});
+
+app.get('/debit', (req, res) => {
+
+	var prev,curr;
+
+	con.query('SELECT balance from bank where accno = 15', function(error, results, fields) {
+
+		// prev = parseInt(results.balance.toString());
+		prev = results[0].balance;
+		if(error) console.log(error);
+		console.log(results[0].balance);
+
+		curr = prev - 200;
+		con.query('UPDATE BANK SET balance = ? WHERE accno = 15', [curr], function(error, results, fields) {
+
+			if(error) console.log(error);
+		});
+	});
+
+});

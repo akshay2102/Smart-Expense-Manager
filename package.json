@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "mysql": "^2.17.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sessionstorage": "^0.1.0"
+    "sessionstorage": "^0.1.0",
+    "web-push": "^3.4.0"
   }
 }

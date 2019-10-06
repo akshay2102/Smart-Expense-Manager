@@ -11,13 +11,14 @@
   <link href="css/profile.css" rel="stylesheet" />
   <link href="css/sidenav.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <div class="sidenav">
-        <div align="center" class="logo">LOGO</div>
+         <div align="center" class="logo" style="font-family: 'Pacifico', cursive; font-size: 36px;">kanjus</div>
         <hr>
         <a href="../dashboard"><i class="glyphicon glyphicon-dashboard"></i>  Dashboard</a>
         <a href="../expense"><i class="glyphicon glyphicon-usd"></i> Expense</a>
@@ -47,7 +48,6 @@
           </div>
         </form>
         <!-- User -->
-        
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,7 +97,7 @@
                 <input type="submit" class="btn btn-primary btn-md col-2" name="submit" value="Visualize">
               </form>
               <br>
-              <div class="row" >
+              <div class="row"  style="height: 50px">
                 <div class="col-6">
                   <canvas id="myChart"></canvas>                      
                 </div>
