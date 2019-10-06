@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=300px src="./image/logo.png" alt="Fundchain-logo"></a>
+ <img width=300px src="https://github.com/akshay2102/Smart-Expense-Manager/blob/master/public/images/logo.png" alt="Fundchain-logo"></a>
 </p>
 
 
@@ -99,10 +99,10 @@ Link : [https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28](htt
 ------------------------------------------
 ### Recognition
 
-This repository / project was a part of [@BlockchainHackathon](https://github.com/XinFinOrg/Open-Hackathon/issues/68) 2018
+This repository / project was a part of [@KJSCEHackathon](https://github.com/XinFinOrg/Open-Hackathon/issues/68) 2018
 
 ------------------------------------------
 
-### Home Page
+### Demo
+(https://www.youtube.com/watch?v=IJfys1X755o&feature=youtu.be)
 
-![home page](https://github.com/Kadam-Tushar/FundChain/blob/master/image/homepage.JPG)
