@@ -1,4 +1,7 @@
-<h1 align="center">Budgect</h1>
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=300px src="./image/logo.png" alt="Fundchain-logo"></a>
+</p>
 
 
 <div align = "center">
@@ -20,10 +23,7 @@
 
 
 </div>
-<p align="center">
-  <a href="" rel="noopener">
- <img width=300px src="./image/logo.png" alt="Fundchain-logo"></a>
-</p>
+
 
 
 A block-chain based startup funding website for Global BlockChain Hackathon using
