@@ -8,20 +8,12 @@
 <h2>📈📊⌚</h2>
 
 </div>
-
-<br/>
 <div align="center">
-
 
   [![made-with-javascript](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://www.javascript.org/)
 
- 
-
-
   <br>
-
-
-
+  
 </div>
 
 
@@ -71,10 +63,6 @@ Installing all the dependencies in cmd after node is installed with the **specif
  10. npm install solc@0.4.25
  11. npm install truffle-hdwallet-provider@0.0.3
  12. npm install web3@1.0.0-beta.26
-
-A step by step series to add and setup of Metamask extension on Google Chrome:
-
-Link : [https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28](https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28)
  </code></pre>
 
 
@@ -99,7 +87,7 @@ Link : [https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28](htt
 ------------------------------------------
 ### Recognition
 
-This repository / project was a part of [@KJSCEHackathon](https://github.com/XinFinOrg/Open-Hackathon/issues/68) 2018
+This repository / project was a part of [@KJSCEHackathon](#) 2019
 
 ------------------------------------------
 
