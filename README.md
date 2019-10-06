@@ -94,6 +94,7 @@ Link : [https://medium.com/@followcoin/how-to-install-metamask-88cbdabc1d28](htt
 - [@sangramdesai123](https://github.com/sangramdesai123)
 - [@akshay2102](https://github.com/akshay2102)
 - [@amitmahajan29](https://github.com/amitmahajan29)
+- [@patelnishit835](https://github.com/patelnishit835)
 
 ------------------------------------------
 ### Recognition
@@ -105,22 +106,3 @@ This repository / project was a part of [@BlockchainHackathon](https://github.co
 ### Home Page
 
 ![home page](https://github.com/Kadam-Tushar/FundChain/blob/master/image/homepage.JPG)
-
-### Ad Campaign
-
-<p>
-   
-![CreateAds](https://github.com/Kadam-Tushar/FundChain/blob/master/image/create%20ad.JPG)
-   
-</p>
- 
-<p>
- 
- **On Ad creation and deployment** 
-   
-![metamask](https://github.com/Kadam-Tushar/FundChain/blob/master/image/meta%20mask.JPG)
-
-</p>
-
-
-
