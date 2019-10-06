@@ -53,7 +53,39 @@ app.get('/future', function(req, res){
 		res.render('future.ejs',{uid:sessionStorage.getItem('loggedin_user'), results: results});
 	});
 });
-
+app.post('/billDetails', function(req,res){
+	var today = new Date().getDate();
+	var month = new Date().getMonth();
+	var days = 0
+	send_uid = []
+	send_days = []
+	// console.log(month);
+	var currentUser = sessionStorage.getItem('loggedin_user');
+	con.query('SELECT * FROM expense WHERE u_id = ? AND MONTH(date) = ? AND category="Bill"  ',[currentUser, month+1], function(err, result, fields) {
+		// console.log(result);
+		result.forEach(function(items){
+			curr_date = new Date().getDate();
+			db_date = items.date.getDate();
+			// console.log(curr_date);
+			// console.log(db_date);
+			if(curr_date<=db_date)
+			{
+				console.log("in if");
+				days = db_date - curr_date;
+			}
+			else
+			{
+				console.log("in else");
+				days = curr_date - db_date;
+			}
+			send_uid.push(items.title);
+			send_days.push(days);
+			// console.log(days);
+		});
+		console.log(send_uid,send_days);
+		res.render('bill.ejs',{uid:sessionStorage.getItem('loggedin_user'),send_uid : send_uid, send_days : send_days});
+	});
+})
 app.get('/profile', function(req, res){
 	var details = {}
 	var currentUser = sessionStorage.getItem('loggedin_user');
@@ -75,6 +107,11 @@ app.get('/profile', function(req, res){
 app.get("/dashboard",function(req, res){
 	res.render('dashboard.ejs', {freq : '', sum_expenses : '', uid: sessionStorage.getItem('loggedin_user')});
 });
+app.get("/bill", function(req, res) {
+	res.render('bill.ejs',{uid:sessionStorage.getItem('loggedin_user'),send_uid : "", send_days : ""});
+	{}
+});
+
 
 app.post('/chart',function(req, res) {
 	var startDate = req.body.startDate;

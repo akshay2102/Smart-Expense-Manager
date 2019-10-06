@@ -11,13 +11,30 @@
   <link href="css/profile.css" rel="stylesheet" />
   <link href="css/sidenav.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+  <style type="text/css">
+      table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+  </style>
 </head>
 
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <div class="sidenav">
-        <div align="center" class="logo" style="font-family: 'Pacifico', cursive; font-size: 36px;">kanjus</div>
+         <div align="center" class="logo" style="font-family: 'Pacifico', cursive; font-size: 36px;">kanjus</div>
         <hr>
         <a href="../dashboard"><i class="glyphicon glyphicon-dashboard"></i>  Dashboard</a>
         <a href="../expense"><i class="glyphicon glyphicon-usd"></i> Expense</a>
@@ -35,7 +52,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">User Profile</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Bills</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -56,7 +73,7 @@
                   <img alt="Image placeholder" src="images/admin.png">
                 </p>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <p class="mb-0 text-sm  font-weight-bold"><%= details.username %></p>
+                  <p class="mb-0 text-sm  font-weight-bold"><%= uid %></p>
                 </div>
               </div>
             </a>
@@ -97,7 +114,7 @@
               <br>
               <div class="text-center">
                 <h3>
-                  <%= details.first_name + ' ' + details.last_name %>
+                  <%= uid %>
                 </h3>
               </div>
             </div>
@@ -117,73 +134,36 @@
               </div>
             </div>
             <div class="card-body">
-            <form action="/updateProfile" method="POST">
-                <h6 class="heading-small text-muted mb-4">User information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> First Name </h3>
-                        <input name="fname" type="text" class="infor" value="<%= details.first_name %>"/>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Last Name </h3>
-                        <input name="lname" type="text" class="infor" value="<%= details.last_name %>"/>
-                      </div>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="row">
-                  <div class="col-md-6">
-                    <div class="Contact">
-                      <h3> User Name </h3>
-                      <input name="uname" type="text" class="infor" value="<%= details.username %>"/>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Mobile No </h3>
-                        <input name="mob" type="number" class="infor" value="<%= details.mobile %>"/>
-                      </div>
-                    </div>
-                  <!-- <div class="col-md-6">
-                    <div class="Contact">
-                      <h3> Email </h3>
-                      <p class="infor"> Sang@gmail.com </p>
-                    </div>
-                  </div> -->
-                </div>
-                </div>
+            <form action="/billDetails" method="POST">
+                <h6 class="heading-small text-muted mb-4">Bills Due for Next Month</h6>
+                
                 <hr class="my-4" />
-                <!-- Address -->
-                <h6 class="heading-small text-muted mb-4">Other information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Budget </h3>
-                        <input name="threshold" type="number" class="infor" value="<%= details.threshold %>"/>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="Contact">
-                        <h3> Monthly Salary </h3>
-                        <input name="salary" type="number" class="infor" value="<%= details.salary %>"/>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <br>
-                <br>
+                
                 <div class="row">
                     <div class="col-7 text-right">
-                      <button class="btn btn-primary" type="submit">Update</button>
+                      <button class="btn btn-primary" type="submit">See Due Bills</button>
                     </div>   
-                </div>                        
+                </div> 
+                <br>                       
               </form>
+              <div id="billResults">
+                <table>
+                  <tr>
+                    <th>Bill Name</th>
+                    <th>Days To Go</th>  
+                  </tr>
+                  
+                  <%  for(var i=0;i<send_uid.length;i++) {  %>
+                  <tr>
+                    <td><%= send_uid[i] %></td>
+                    <td><%= send_days[i] %></td>
+                  </tr>
+                  <% } %>
+                </table>
+              </div>
+              <!-- JSON.parse(document.getElementById("dard").innerHTML||[]) -->
+              <!-- <div id="dard"><%= send_uid.length %></div> -->
+              <!-- <div id="dard_sum"><%= send_days.length %></div> -->
             </div>
           </div>
         </div>
