@@ -30,6 +30,7 @@ An Expense Mangement Web app for KJSCE Hackathon using
  ------------------------------------------
 ## Getting Started
 
+We intend to build a web-app which aims to solve the problem of managing personal expenses. The project was built with a mission of keeping a keen watch on expenses and thus helping the user to minimise his surplus spendings. We also have utilised data-visualisation techniques with the chart.js package. The use of visualisations has been made keeping in mind that human minds have been designed to understand pictures and visuals much more effectively as compared to the natural language counterpart. The trivial features such as login/signup as well as add/update expenses have been made with an intuitive UI. We have also kept the tab of the future goals of user(i.e let's say he wants to buy a laptop of 30,000 after 3 months) and help him achieve his goal by efficiently managing his budget. Also by checking which bills were paid this month, we notify the user about the number of days remaining before the same bill to be paid next month.
 
 
 ### Prerequisites
