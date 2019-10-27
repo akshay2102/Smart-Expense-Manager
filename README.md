@@ -18,7 +18,7 @@
 
 
 
-An Expense Mangement Web app for KJSCE Hackathon using
+An Expense Management Web app for KJSCE Hackathon using
 ------------------------------------------
 
 <pre><code>
