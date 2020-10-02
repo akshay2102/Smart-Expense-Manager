@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+	<form id="year" action="/chart" method="POST">
+		Enter Year : <input type="number" name="startDate">
+		<input type="submit" name="submit" value="Submit">
+	</form>
+	<canvas id="myChart"></canvas>
+	<canvas id="myChart2"></canvas>
+	<div id="dard"><%= freq?freq:null %></div>
+	<div id="dard_sum"><%= sum_expenses?sum_expenses:null %></div>
+</body>
+</html>
+<script type="text/javascript">
+	// var freq;
+	try {
+		var dard = JSON.parse('<%- freq %>');
+		alert(dard);
+		// data_x = freq;
+		// alert(freq);
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+	    type: 'line',
+	    data: {
+	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+	        datasets: [{
+	            label: 'Count of Transactions',
+	            backgroundColor: 'rgb(255, 99, 132)',
+	            borderColor: 'rgb(255, 99, 132)',
+	            data: JSON.parse(document.getElementById("dard").innerHTML||[])
+
+	    	}],
+		},
+	    options: {}
+	});
+		// console.log(data_x);
+	}
+	catch(err){
+		// alert("DARD BHENCHOD");
+		data_x = [0,0,0,0,0,0,0,0,0,0,0,0];
+		// alert(freq);
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+	    type: 'line',
+	    data: {
+	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+	        datasets: [{
+	            label: 'Count of Transactions',
+	            backgroundColor: 'rgb(255, 99, 132)',
+	            borderColor: 'rgb(255, 99, 132)',
+	            // data: [0, 10, 5, 2, 20, 30, 45] //freq
+	            data: data_x
+
+	    	}],
+		},
+	    options: {}
+	});
+		// console.log(data_x);
+	}
+</script>
+
+
+
+<script type="text/javascript">
+	// var freq;
+	try {
+		var dard = JSON.parse('<%- sum_expenses %>');
+		alert(dard);
+		// data_x = freq;
+		// alert(freq);
+		var ctx = document.getElementById('myChart2').getContext('2d');
+		var chart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+	        datasets: [{
+	            label: 'Sum of Transactions',
+	            backgroundColor: 'rgb(255, 99, 132)',
+	            borderColor: 'rgb(255, 99, 132)',
+	            data: JSON.parse(document.getElementById("dard_sum").innerHTML||[])
+
+	    	}],
+		},
+	    options: {}
+	});
+		// console.log(data_x);
+	}
+	catch(err){
+		// alert("DARD BHENCHOD");
+		data_x = [0,0,0,0,0,0,0,0,0,0,0,0];
+		// alert(freq);
+		var ctx = document.getElementById('myChart2').getContext('2d');
+		var chart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September','October', 'November','December'],
+	        datasets: [{
+	            label: 'Sum of Transactions',
+	            backgroundColor: 'rgb(255, 99, 132)',
+	            borderColor: 'rgb(255, 99, 132)',
+	            // data: [0, 10, 5, 2, 20, 30, 45] //freq
+	            data: data_x
+
+	    	}],
+		},
+	    options: {}
+	});
+		// console.log(data_x);
+	}
+</script>

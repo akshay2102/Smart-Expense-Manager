@@ -1,0 +1,37 @@
+
+.sidenav {
+  background-color: white;
+  width: 250px;
+  height: 700px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 18px;
+}
+
+.sidenav a {
+  padding: 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+}
+.sidenav a i {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.sidenav a:hover {
+  color: #f1f1f1;
+  background-color: #23aae2;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+.logo{
+  color: red;
+}
